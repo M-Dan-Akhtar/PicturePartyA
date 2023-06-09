@@ -128,8 +128,15 @@ app.post('/register', async (req, res) => {
 
     let username = req.body.username;
     let password = req.body.password;
-    
-    let user_exist = await User.find({username:username});
+    let user_exist;
+
+    try{
+    user_exist = await User.find({username:username});
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
     
     if (user_exist[0] != null) {
         res.render('register', {result: "User already exists."})
