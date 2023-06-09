@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Party</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/create_poll.css">
+
+</head>
+<body>
+    <section class="header">
+        <a href="/home" class="logo"><h1>Picture Party</h1></a>
+        <div class="loginnav">
+            <a href="/create_poll" class="createpoll">Create Poll</a>
+            <a href="/redeem">Redeem Movie</a>
+            <a href="/logout">Log out</a>
+        </div>
+    </section>
+
+    <section class="centerpanel">
+        <div class="innerpanel"> 
+            <h2>Create New Poll</h2>
+        
+            <div class="error">
+                <% if(locals.result) { %>
+                    <p><img src="/img/errorlogo.png" class="errorlogo"><%=result%></p>
+                <% } %>
+            </div>
+
+            <section>
+                <form action="/create_poll" method="post">
+                    <label class="label">Poll Title</label>
+                    <input type="text" class="textbox" name="poll_title">
+                    <label class="label">Movie Title</label>
+                    <input type="text" class="textbox" name="movie_title" value="">
+                    <button class="submitbutton" type="submit">Create</button>
+                </form>
+            </section>
+        
+        </div>
+    </section>
+</body>
+</html>

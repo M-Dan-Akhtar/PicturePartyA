@@ -1,0 +1,330 @@
+/* Box Model Hack */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Clear fix hack */
+  .clearfix:after {
+       content: ".";
+       display: block;
+       clear: both;
+       visibility: hidden;
+       line-height: 0;
+       height: 0;
+  }
+  
+  .clear {
+      clear: both;
+  }
+
+  :root{
+    --primary-dark: #0D0F11;
+    --secondary-dark:#191E22;
+    --primary-light: #F2ECFF;
+    --primary-accent:#FCBA28;
+    --secondary-accent:#B87F02;
+    --tertiary-dark:#292C2E;
+    --secondary-dark: #191E22;
+  }
+  
+  /******************************************
+  /* BASE STYLES
+  /*******************************************/
+  
+  body {
+    background: var(--primary-dark);
+  }
+  h1 {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 58px;
+
+    /* Primary Accent */
+
+    color: var(--primary-accent);
+
+  }
+
+  h2 {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 58px;
+
+    /* Primary Accent */
+
+    color: var(--primary-light);
+  }
+
+  h4{
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 44px;
+    letter-spacing: 0.06em;
+    
+
+    /* Primary Accent */
+
+    color: var(--primary-light);
+  }
+  
+  a {
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    
+    color: var(--primary-light);
+    margin: 20px;
+    text-decoration: none;
+  }
+
+  a:hover{
+    color:var(--tertiary-dark)
+  }
+  a.register {
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    color:var(--primary-dark);
+    background-color: var(--primary-accent);
+    border-radius: 5px;
+    text-decoration: none;
+    
+    margin: 20px;
+    padding: 15px;
+  }
+
+  a.register:hover{
+    background-color: var(--secondary-accent);
+  }
+
+  ul{
+    margin:0px;
+    padding:0px;
+  }
+  /******************************************
+  /* LAYOUT
+  /*******************************************/
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 50px;
+  }
+
+  .logo{
+    
+    text-decoration: none;
+    margin:0px;
+    padding:0px;
+  
+  }
+
+  .createpoll
+  {
+    background-color: var(--primary-accent);
+    color: var(--primary-dark);
+    padding:10px;
+  }
+
+  .createpoll:hover{
+    background-color: var(--secondary-accent);
+  }
+
+  .leaderboardlist{
+    display: inline;
+    
+  }
+
+  .leaderboardtitle{
+    color: var(--primary-accent);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+  }
+  .leaderboardusername{
+    
+    color: var(--secondary-accent);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+  }
+
+  .leaderboardpoints{
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+  }
+
+  .leaderboardseperate{
+    color: var(--tertiary-dark);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+  }
+
+.redeem{
+  color: var(--primary-light);
+  font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+}
+
+  .loginnav{
+    
+    display: flex;
+    align-items: center;
+   
+  }
+  
+  
+ .top-row{
+  display:flex;
+  justify-content: space-between;
+ } 
+
+.top-left{
+  width:100%;
+  margin:0px;
+  padding:0px;
+}
+
+.top-right{
+  width:49%;
+  margin:0px;
+  padding:0px;
+}
+
+
+
+
+
+
+  .pollpanel{
+    display:flex;
+    justify-content: space-between;
+    border:2px solid var(--secondary-dark);
+    border-radius: 4px;
+    margin:10px 0px;
+    padding:5px 20px;
+  }
+
+  .polltitle{
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    width:30%;
+  }
+
+  .pollinfo{
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    width:55%;
+  }
+
+  .polldate{
+    color: var(--tertiary-dark);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 40px;
+    width:10%;
+    text-align: right;
+  }
+
+  .pollvote{
+    margin:0px;
+    padding:0px;
+  }
+  .pollpanel:hover{
+    border-color:var(--secondary-accent);
+    color:var(--primary-light);
+  }
+
+  .pollby{
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    width:15%;
+  }
+
+  .primary-accent{
+    color: var(--primary-accent);
+  }
+  .secondary-accent
+  {
+    color: var(--secondary-accent)
+  }
+
+  .primary-dark{
+    color: var(--primary-dark);
+  }
+  .secondary-dark
+  {
+    color: var(--secondary-dark)
+  }
+
+  .primary-light{
+    color: var(--primary-light)
+  }
+
+  .centerpanel
+  {
+    margin:80px;
+    margin-top:-20px;
+  }
+
+  .innerpanel
+  {
+    width: 500px;
+    text-align: center;
+  }
+
+
+
+.center-img{
+  display: flex;
+  align-items: center;
+}
+.popcorn{
+  margin-top:40px;
+  width:115px;
+  height:157px;
+}
+
+.username{
+  color:var(--primary-accent);
+}
+
+  footer {
+  
+  }
+  
+  /******************************************
+  /* ADDITIONAL STYLES
+  /*******************************************/
+  

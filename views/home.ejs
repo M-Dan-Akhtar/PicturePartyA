@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Party</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/home.css">
+
+</head>
+<body>
+    <section class="header">
+        <a href="/home" class="logo"><h1>Picture Party</h1></a>
+        <div class="loginnav">
+            <a href="/create_poll" class="createpoll">Create Poll</a>
+            <a href="/redeem">Redeem Movie</a>
+            <a href="/logout">Log out</a>
+        </div>
+    </section>
+
+    <section class="centerpanel">
+        <h2>Hello <span class="username"><%=username%>!</span></h2> 
+
+
+        <section class="redeem">
+            <p>Latest Movie Redeem: 
+                <% if(redeems.length > 0) { %>
+                <span class="primary-accent"><%= redeems[redeems.length-1].movie %></span> by
+                <span class="primary-accent"><%= redeems[redeems.length-1].username %></span> on                
+                <span class="primary-accent"><%= redeems[redeems.length-1].date.toLocaleString('en-US') %></span>
+                <% } %>
+            </p>
+        </section>
+
+        <!--
+        <section>
+            <ul>
+            <p class="leaderboardtitle leaderboardlist">Points: </p>
+                <% for(let i = 0; i < users.length; ++i) { %>
+                <li class="leaderboardlist">
+                    <span class="leaderboardusername"><%= users[i].username %></span>
+                    <span class="leaderboardpoints"><%= users[i].points %></span>
+                    <span class="leaderboardseperate"> | </span>
+                </li>
+                <%   } %>   
+            </ul>
+        </section>
+        -->
+        
+
+        <section class="top-row">
+            <section class="top-left">
+                <h4>Recent Polls</h4>
+                <div>
+                <% for(let i = polls.length - 1; i >= 0; --i) { 
+                      %>
+                    
+                    <a href="/poll/<%= polls[i]._id %>" class="pollvote">
+                    <div class="pollpanel">
+                        <p class="polltitle"><%= polls[i].poll_title %></p>
+                        <p class="pollby">by <%= polls[i].poll_author %></p>
+
+                        <% if(polls[i].winner == "none") { %>
+                            <p class="pollinfo">Active</p>    
+                        <% } else if (polls[i].winner == "draw") { %>
+                            <p class="pollinfo">Draw. No Winner.</p>    
+                        <% } else { %>
+                        <p class="pollinfo">
+                            <span class="primary-accent">Winning Movie:</span> <%= polls[i].winning_movie %> 
+                            <span class="primary-accent">Submitted by: </span><%= polls[i].winner %></p>
+                        <% } %>
+                        <p class="polldate"><%= polls[i].date.toLocaleString('en-US') %></p>
+                    </div>
+                    </a>
+                <%    
+                } %>   
+                </div>
+            </section>
+        </section>
+            
+    </section>
+
+</body>
+</html>

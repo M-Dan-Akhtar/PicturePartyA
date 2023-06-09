@@ -1,0 +1,194 @@
+/* Box Model Hack */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Clear fix hack */
+  .clearfix:after {
+       content: ".";
+       display: block;
+       clear: both;
+       visibility: hidden;
+       line-height: 0;
+       height: 0;
+  }
+  
+  .clear {
+      clear: both;
+  }
+
+  :root{
+    --primary-dark: #0D0F11;
+    --secondary-dark:#191E22;
+    --primary-light: #F2ECFF;
+    --primary-accent:#FCBA28;
+    --secondary-accent:#B87F02;
+    --tertiary-dark:#292C2E;
+    --input-background: #1E2022;
+  }
+  
+  /******************************************
+  /* BASE STYLES
+  /*******************************************/
+  
+  body {
+    background: var(--primary-dark);
+  }
+  h1 {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 58px;
+
+    /* Primary Accent */
+
+    color: var(--primary-accent);
+
+  }
+
+  h2 {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 58px;
+
+    /* Primary Accent */
+
+    color: var(--primary-light);
+
+  }
+
+  h3{
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 44px;
+    letter-spacing: 0.06em;
+    
+
+    /* Primary Accent */
+
+    color: var(--primary-light);
+  }
+  
+  a.login {
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    
+    color: var(--primary-light);
+    margin: 20px;
+    text-decoration: none;
+  }
+
+  a.login:hover{
+    color:var(--tertiary-dark)
+  }
+  a.register {
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    color:var(--primary-accent);
+  }
+
+  a.register:hover{
+    background-color: var(--secondary-accent);
+  }
+  /******************************************
+  /* LAYOUT
+  /*******************************************/
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 50px;
+  }
+
+  .logo{
+    text-decoration: none;
+  }
+
+  .loginnav{
+    display: flex;
+    align-items: center;
+  }
+  
+  .error{
+    height:15px;
+    margin-top:-15px;
+  }
+
+  .errorlogo{
+    width:20px;
+  }
+
+  .centerpanel
+  {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .innerpanel
+  {
+    padding:20px;
+    background-color: var(--secondary-dark);
+    width:330px;
+  }
+
+  .label{
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .textbox{
+    color: var(--primary-light);
+    margin:0px;
+    background-color: var(--input-background);
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid var(--tertiary-dark);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .submitbutton{
+    width: 100%;
+    background-color: var(--primary-accent);
+    color: var(--primary-dark);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    color: var(--primary-dark);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .submitbutton:hover{
+    background-color: var(--secondary-accent);
+  }
+  
+  p{
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+  }
+  footer {
+  
+  }
+  
+  /******************************************
+  /* ADDITIONAL STYLES
+  /*******************************************/
+  

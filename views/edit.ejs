@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+    <section class = "todo-container">
+        <h2>Edit List Item</h2>
+        <section class="todo">
+            <ul class="todo-list">
+                <% for(let i = 0; i < todoTasks.length; ++i){ %>
+                    <% if (todoTasks[i]._id == idTask) { %>
+                        <li class = "todo-list-item">
+                            <form action="/edit/<%=todoTasks[i]._id %>" method="post">
+                                <input type="<%= todoTasks[i].title %>" name="title" value="title">
+                                <textarea name="content" id="" cols="30" rows="10"><%= todoTasks[i].content %></textarea>
+                                <button type="submit">Confirm</button>
+                                <a href="/">Cancel</a>
+                            </form>
+                        </li>
+                    <% } else { %>
+
+                <li class="todo-list-item">
+                    <div class="todo-list-item-title">
+                        <%= todoTasks[i].title %>
+                    </div>
+                    <div class="todo-list-item-content">
+                        <%= todoTasks[i].content %>
+                    </div>
+                    <a href="/edit/<%=todoTasks[i]._id %>" class="edit">Edit</a>
+                    <a href="/remove/<%=todoTasks[i]._id %>" class="remove">Remove</a>
+                </li>    
+                <% }} %>
+            </ul>
+        </section>
+    </section>
+</body>
+</html>

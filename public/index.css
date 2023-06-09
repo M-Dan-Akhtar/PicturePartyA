@@ -1,0 +1,144 @@
+/* Box Model Hack */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Clear fix hack */
+  .clearfix:after {
+       content: ".";
+       display: block;
+       clear: both;
+       visibility: hidden;
+       line-height: 0;
+       height: 0;
+  }
+  
+  .clear {
+      clear: both;
+  }
+
+  :root{
+    --primary-dark: #0D0F11;
+    --secondary-dark:#191E22;
+    --primary-light: #F2ECFF;
+    --primary-accent:#FCBA28;
+    --secondary-accent:#B87F02;
+    --tertiary-dark:#292C2E;
+  }
+  
+  /******************************************
+  /* BASE STYLES
+  /*******************************************/
+  
+  body {
+    background: var(--primary-dark);
+  }
+  h1 {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 58px;
+
+    /* Primary Accent */
+
+    color: var(--primary-accent);
+
+  }
+
+  h3{
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 44px;
+    letter-spacing: 0.06em;
+    
+
+    /* Primary Accent */
+
+    color: var(--primary-light);
+  }
+  
+  a.login {
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    
+    color: var(--primary-light);
+    margin: 20px;
+    text-decoration: none;
+  }
+
+  a.login:hover{
+    color:var(--tertiary-dark)
+  }
+  a.register {
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    color:var(--primary-dark);
+    background-color: var(--primary-accent);
+    border-radius: 5px;
+    text-decoration: none;
+    
+    margin: 20px;
+    padding: 15px;
+  }
+
+  a.register:hover{
+    background-color: var(--secondary-accent);
+  }
+  /******************************************
+  /* LAYOUT
+  /*******************************************/
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 50px;
+  }
+
+  .logo{
+    
+
+  }
+
+  .loginnav{
+    
+    display: flex;
+    align-items: center;
+   
+  }
+
+  .centerpanel
+  {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .innerpanel
+  {
+    width: 500px;
+    text-align: center;
+  }
+
+.center-img{
+  display: flex;
+  align-items: center;
+}
+.popcorn{
+  margin-top:40px;
+  width:115px;
+  height:157px;
+}
+
+  footer {
+  
+  }
+  
+  /******************************************
+  /* ADDITIONAL STYLES
+  /*******************************************/
+  

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Party</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/poll.css">
+
+</head>
+<body>
+    <% 
+        let voted = false;
+        let can_add = true;
+        let poll_active = poll.winner == "none" ? true : false;
+        let admin = (session.username == "Toxik") ? true : false;
+        
+        for(let i = 0; i < poll.vote_list.length; ++i) {
+            if(poll.vote_list[i].username == session.username) { voted = true } 
+        }
+
+        for(let i = 0; i < poll.movies.length; ++i)
+        {
+            if(poll.movies[i].added_by == session.username) { can_add = false; }
+        }
+        
+        if(poll.poll_author == session.username) { can_add = false; }
+
+    %>
+
+
+
+    <section class="header">
+        <a href="/home" class="logo"><h1>Picture Party</h1></a>
+        <div class="loginnav">
+            <a href="/create_poll" class="createpoll">Create Poll</a>
+            <a href="/redeem">Redeem Movie</a>
+            <a href="/logout">Log out</a>
+        </div>
+    </section>
+
+    <section class="centerpanel">
+        <section class="poll_header">
+            <section class="poll_header_title">
+                <h2><%= poll.poll_title %> <% if(!poll_active) { %> | <span class="secondary-accent">(Closed)</span> <% } %></h2>
+                <h4>By: <%= poll.poll_author %></h4>
+            </section>
+            <section class="poll_header_add_movie">
+                <% if(can_add) { %>
+                <a class="addmovie" id="myBtn">Add Movie</a>
+                <% } else {%>
+                <a href="#" class="disabledbtn">Add Movie</a>
+                <% } %>
+            </section>
+        </section>
+
+
+        <section class = "todo-container">
+            <section class="todo">
+                
+                <h3>Movies</h3>
+                
+                
+                <% for(let i = 0; i < poll.movies.length; ++i) { %>
+                <div class="pollpanel">
+                    <div class="movieinfo">
+                        <p class="pollby">Added by: <%= poll.movies[i].added_by %></p>
+                        <p class="polltitle"><%= poll.movies[i].title %> </p>
+                    </div>
+                    <div class="voteinfo">
+                    <p class="votes"> Votes: <%= poll.movies[i].votes %></p> 
+
+                        <% if(voted==false && poll_active){ %>
+                            <a href="/add_vote/<%= poll._id %>/<%= poll.movies[i]._id %>" class="votebtn"> Vote </a></li>
+                        <% } else { %>
+                            <a href="#" class="votebtn disabledbtn"> Vote </a></li>
+                        <% } %>
+                    </div>
+                </div>       
+                <% } %>
+                
+                
+            </section>
+            
+            <% if(admin) { %>
+                <a href="/close_poll/<%= poll._id %>">Close Poll</a>
+            <% } %>
+        </section>
+    </section>
+
+    <!-- Trigger/Open The Modal -->
+
+<!-- The Modal -->
+<div id="addMovieModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    
+    <section>
+        <span class="close">&times;</span>
+        <h5>Add a movie</h5>
+        <form action="/add_movie/<%= poll._id %>" method="post">
+            <% if(can_add==true && poll_active){ %>
+            <input type="text" name="movie_title" value="Add another movie">
+            <button type="submit">Add</button>
+            <% } %>
+        </form>
+    </section>
+  </div>
+
+</div>
+<script src="/js/modal.js"></script>
+</body>
+</html>

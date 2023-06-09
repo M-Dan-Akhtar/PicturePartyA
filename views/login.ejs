@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Party</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+    <section class="header">
+        <a href="/" class="logo"><h1>Picture Party</h1></a>
+    </section>
+    
+
+
+    <section class="centerpanel">
+        <div class="innerpanel"> 
+            <h2>Welcome Back!</h2>
+        
+            <div class="error">
+                <% if(locals.result) { %>
+                    <p><img src="/img/errorlogo.png" class="errorlogo"><%=result%></p>
+                <% } %>
+            </div>
+
+            <form action="/login" method="post">
+                <p class="label">Username</p>
+                <input class="textbox" type="text" name="username" placeholder="username">
+                <p class="label">Password</p>
+                <input class="textbox" type="password" name="password" placeholder="password">
+                <button class="submitbutton" type="submit">Sign In</button>
+                <p>Forgot your password? Tough luck.</p>
+                <p>Don't have an account? <a class="register" href="/register">Register!</a></p>
+            </form>
+        
+        </div>
+    </section>
+</body>
+</html>
