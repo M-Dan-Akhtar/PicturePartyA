@@ -137,7 +137,7 @@ app.post('/register', async (req, res) => {
     {
         console.log(err);
     }
-    
+
     if (user_exist[0] != null) {
         res.render('register', {result: "User already exists."})
         return;
@@ -267,17 +267,30 @@ app.route("/add_vote/:poll_id/:movie_id")
     const poll_id = req.params.poll_id 
     const movie_id = req.params.movie_id
 
-    try
+    let current_poll = await Poll.find({_id:poll_id});
+
+    for(let i = 0; i < current_poll[0].vote_list.length; ++i) {
+        if(current_poll[0].vote_list[i].username == session.username) { voted = true } 
+    }
+
+
+    if(!voted){
+        try
+        {
+            await Poll.updateOne(
+            { _id : poll_id, "movies._id" : movie_id},    
+            { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username}}}
+            
+            
+            )
+            res.redirect("/poll/" + poll_id);
+        }
+        catch(err){console.log(err)}
+    }
+    else
     {
-        await Poll.updateOne(
-        { _id : poll_id, "movies._id" : movie_id},    
-        { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username}}}
-        
-         
-        )
         res.redirect("/poll/" + poll_id);
     }
-    catch(err){console.log(err)}
 })
 
 app.route("/close_poll/:poll_id")
