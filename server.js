@@ -267,6 +267,7 @@ app.route("/add_vote/:poll_id/:movie_id")
     const poll_id = req.params.poll_id 
     const movie_id = req.params.movie_id
 
+    let voted = false;
     let current_poll;
     try{
         current_poll = await Poll.find({_id:poll_id});
