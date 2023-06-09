@@ -92,6 +92,7 @@ app.post('/login', async (req, res) => {
     }catch (err) {
         console.log(err);
     }
+    
     if (user_exist[0] != null) {
         
         session=req.session;
