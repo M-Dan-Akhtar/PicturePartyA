@@ -86,13 +86,13 @@ app.post('/login', async (req, res) => {
 
     let username = req.body.username;
     let password = req.body.password;
-    
+    let user_exist;
     try{
-    let user_exist = await User.find({username:username, password:password});
+    user_exist = await User.find({username:username, password:password});
     }catch (err) {
         console.log(err);
     }
-    
+
     if (user_exist[0] != null) {
         
         session=req.session;
