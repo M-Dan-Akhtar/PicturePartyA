@@ -267,8 +267,14 @@ app.route("/add_vote/:poll_id/:movie_id")
     const poll_id = req.params.poll_id 
     const movie_id = req.params.movie_id
 
-    let current_poll = await Poll.find({_id:poll_id});
-
+    let current_poll;
+    try{
+        current_poll = await Poll.find({_id:poll_id});
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
     for(let i = 0; i < current_poll[0].vote_list.length; ++i) {
         if(current_poll[0].vote_list[i].username == session.username) { voted = true } 
     }
