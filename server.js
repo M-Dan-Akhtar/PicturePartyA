@@ -91,7 +91,11 @@ app.post('/login', async (req, res) => {
     try{
         user_exist = await User.find({username:username, password:password});
     }catch (err) {
+        console.log("--------------------");
+        console.log("Login Failed: Error finding user.");
+        console.log("--------------------");
         console.log(err);
+        console.log("--------------------");
     }
 
     if (user_exist[0] != null) {
@@ -136,7 +140,11 @@ app.post('/register', async (req, res) => {
     }
     catch(err)
     {
+        console.log("--------------------");
+        console.log("Register Failed: Error getting user_exist.");
+        console.log("--------------------");
         console.log(err);
+        console.log("--------------------");
     }
 
     if (user_exist[0] != null) {
@@ -156,7 +164,11 @@ app.post('/register', async (req, res) => {
         await new_user.save();
         res.redirect("/");
     } catch (err) {
-        console.log(err)
+        console.log("--------------------");
+        console.log("Register Failed: Error creating new_user.");
+        console.log("--------------------");
+        console.log(err);
+        console.log("--------------------");
         res.redirect("/");
     }
 });
@@ -205,7 +217,11 @@ app.post('/create_poll', async (req, res) => {
         console.log("Poll Created: " + poll_title + " | " + poll_author);
         res.redirect("/home");
     } catch (err) {
-        console.log(err)
+        console.log("--------------------");
+        console.log("Create Poll Failed: Error creating new_poll.");
+        console.log("--------------------");
+        console.log(err);
+        console.log("--------------------");
         res.render("create_poll.ejs", {result: "Error: Fields weren't filled correctly."});
     }
 });
@@ -226,7 +242,18 @@ app
         }
 
         const id = req.params.id
-        let current_poll = await Poll.find({_id:id});
+        let current_poll;
+        try
+        {
+            current_poll = await Poll.find({_id:id});
+        }
+        catch(err){
+            console.log("--------------------");
+            console.log("Poll Failed: Error getting current_poll.");
+            console.log("--------------------");
+            console.log(err);
+            console.log("--------------------");
+        }
         res.render('poll.ejs', {poll:current_poll[0]})
     })
  
@@ -252,7 +279,14 @@ app.route("/add_movie/:id")
         })
         res.redirect("/poll/" + id);
     }
-    catch(err){console.log(err)}
+    catch(err)
+    {
+        console.log("--------------------");
+        console.log("Add Movie Failed: Error updating poll.");
+        console.log("--------------------");
+        console.log(err);
+        console.log("--------------------");
+    }
     }
 )
 
@@ -274,7 +308,11 @@ app.route("/add_vote/:poll_id/:movie_id")
     }
     catch(err)
     {
+        console.log("--------------------");
+        console.log("Add Vote Failed: Error finding poll.");
+        console.log("--------------------");
         console.log(err);
+        console.log("--------------------");
     }
     for(let i = 0; i < current_poll[0].vote_list.length; ++i) {
         if(current_poll[0].vote_list[i].username == session.username) { voted = true } 
@@ -292,7 +330,13 @@ app.route("/add_vote/:poll_id/:movie_id")
             )
             res.redirect("/poll/" + poll_id);
         }
-        catch(err){console.log(err)}
+        catch(err){
+            console.log("--------------------");
+            console.log("Add Vote Failed: Error updating votes.");
+            console.log("--------------------");
+            console.log(err);
+            console.log("--------------------");
+        }
     }
     else
     {
@@ -349,7 +393,13 @@ app.route("/close_poll/:poll_id")
 
         res.redirect("/poll/" + poll_id);
     }
-    catch(err){console.log(err)}
+    catch(err){
+        console.log("--------------------");
+        console.log("Close Poll Failed");
+        console.log("--------------------");
+        console.log(err);
+        console.log("--------------------");
+    }
 })
 
 
