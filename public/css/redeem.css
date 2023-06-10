@@ -227,6 +227,11 @@ footer {
   {
     color: var(--secondary-accent)
   }
+
+  .primary-accent
+  {
+    color: var(--primary-accent)
+  }
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/

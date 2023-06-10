@@ -27,17 +27,15 @@
     <section class="centerpanel">
         <div class="innerpanel"> 
             <h2>Redeem A Movie</h2>
-            <p>Use <span class="secondary-accent">100 points</span> to watch a movie of your choice!</p>
+            <p>Your Points: <span class="primary-accent"><%= locals.points %></span></p>
+            <p>Get <span class="secondary-accent">10 points</span> if your movie wins!</p>
+            <p>Use <span class="secondary-accent">50 points</span> to watch a movie of your choice!</p>
             <div class="error">
                 <% if(locals.result) { %>
                     <p><img src="/img/errorlogo.png" class="errorlogo"><%=result%></p>
                 <% } %>
             </div>
 
-        
-            <% if(locals.result) { %>
-                <p><%=result%></p>
-            <% } %>
             <form action="/redeem" method="post">
                 <label class="label">Movie Title</label>
                 <input type="text" name="movie_title" placeholder="movie title" class="textbox">

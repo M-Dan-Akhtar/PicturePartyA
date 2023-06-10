@@ -300,6 +300,9 @@ app.route("/add_vote/:poll_id/:movie_id")
     }
 })
 
+
+
+
 app.route("/close_poll/:poll_id")
     .get(async (req, res) => {
     session=req.session;
@@ -313,6 +316,7 @@ app.route("/close_poll/:poll_id")
     let most_votes = 0;
     let winning_movie = "";
     let draw = false;
+    let points_awarded = 10;
     try
     {
         let nPoll = await Poll.find({ _id : poll_id});
@@ -340,7 +344,7 @@ app.route("/close_poll/:poll_id")
         else
         {
             await Poll.findByIdAndUpdate(poll_id,{ winner: winner, winning_movie: winning_movie })
-            await User.findOneAndUpdate({username: winner}, {$inc : {points : 1}})
+            await User.findOneAndUpdate({username: winner}, {$inc : {points : points_awarded}})
         }
 
         res.redirect("/poll/" + poll_id);
@@ -350,13 +354,22 @@ app.route("/close_poll/:poll_id")
 
 
 // Redeem
-app.get('/redeem',(req,res) => {
+app.get('/redeem', async(req,res) => {
     session=req.session;
     if(!session.username){ 
         res.redirect("/"); 
         return;
     }
-    res.render('redeem.ejs');
+
+    let user;
+    try
+    {
+        user = await User.find({username: session.username});
+
+    }
+    catch(err){console.log(err)}
+    
+    res.render('redeem.ejs', {points: user[0].points});
 });
 
 
@@ -369,21 +382,21 @@ app.route("/redeem")
     }
     
     let movie_title = req.body.movie_title;
-   
+    let points_to_redeem = 100;
     let user;
     try
     {
         user = await User.find({username: session.username});
         
-        if(user[0].points >= 1)
+        if(user[0].points >= points_to_redeem)
         {
-            await User.findOneAndUpdate({username: session.username}, {$inc : {points : -1}})
+            await User.findOneAndUpdate({username: session.username}, {$inc : {points : -points_to_redeem}})
             
             const new_redeem = new Redeem(
                 {
                     username: session.username,
                     movie: movie_title,
-                    points:1
+                    points:points_to_redeem
                 })    
 
             await new_redeem.save();
@@ -391,7 +404,7 @@ app.route("/redeem")
             res.redirect("/home");
         }
         else{
-            res.redirect("/home");
+            res.render("redeem.ejs", {points: user[0].points, result: "Error: Not enough points or field not filled."});
         }
     }
     catch(err){console.log(err)}
