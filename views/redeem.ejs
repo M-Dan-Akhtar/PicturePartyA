@@ -6,23 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picture Party</title>
 
-    <link rel="stylesheet" href="/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/redeem.css">
 
 </head>
 <body>
-    <section>
-        <h2>Redeem</h2>
-        <section>
+    <section class="header">
+        <a href="/home" class="logo"><h1>Picture Party</h1></a>
+        <div class="loginnav">
+            <a href="/create_poll" class="createpoll">Create Poll</a>
+            <a href="/redeem">Redeem Movie</a>
+            <a href="/logout">Log out</a>
+        </div>
+    </section>
+
+    <section class="centerpanel">
+        <div class="innerpanel"> 
+            <h2>Redeem A Movie</h2>
+            <p>Use <span class="secondary-accent">100 points</span> to watch a movie of your choice!</p>
+            <div class="error">
+                <% if(locals.result) { %>
+                    <p><img src="/img/errorlogo.png" class="errorlogo"><%=result%></p>
+                <% } %>
+            </div>
+
+        
             <% if(locals.result) { %>
                 <p><%=result%></p>
             <% } %>
             <form action="/redeem" method="post">
-                <input type="text" name="movie_title" value="movie_title">
+                <label class="label">Movie Title</label>
+                <input type="text" name="movie_title" placeholder="movie title" class="textbox">
                 
-                <button type="submit">Redeem</button>
+                <button class="submitbutton" type="submit">Redeem</button>
             </form>
-        </section>
+        
         
     </section>
 </body>
 </html>
+
+
+
+
+
+
+
+    
+           
+        
+            
+
+            
+        

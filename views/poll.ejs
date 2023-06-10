@@ -52,7 +52,7 @@
                 <h4>By: <%= poll.poll_author %></h4>
             </section>
             <section class="poll_header_add_movie">
-                <% if(can_add) { %>
+                <% if(can_add && poll_active) { %>
                 <a class="addmovie" id="myBtn">Add Movie</a>
                 <% } else {%>
                 <a href="#" class="disabledbtn">Add Movie</a>

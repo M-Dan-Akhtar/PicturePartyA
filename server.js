@@ -84,11 +84,12 @@ app.get("/login", async (req, res) => {
 
 app.post('/login', async (req, res) => {
 
-    let username = req.body.username;
+    let username = req.body.username.toLowerCase();
     let password = req.body.password;
     let user_exist;
+
     try{
-    user_exist = await User.find({username:username, password:password});
+        user_exist = await User.find({username:username, password:password});
     }catch (err) {
         console.log(err);
     }
@@ -96,14 +97,14 @@ app.post('/login', async (req, res) => {
     if (user_exist[0] != null) {
         
         session=req.session;
-        session.username=req.body.username;
-
+        session.username=username;
+        console.log("Login Success: " + username);
         res.redirect("/home");
     } 
     else
     {
         res.render('login.ejs', {result: "Invalid username/password. Please try again."})
-        console.log("Invalid username/password. Please try again.");
+        console.log("Login Failed: " + username);
     }
 });
 
@@ -126,12 +127,12 @@ app.get("/register", async (req, res) => {
 
 app.post('/register', async (req, res) => {
 
-    let username = req.body.username;
+    let username = req.body.username.toLowerCase();
     let password = req.body.password;
     let user_exist;
 
     try{
-    user_exist = await User.find({username:username});
+        user_exist = await User.find({username:username});
     }
     catch(err)
     {
@@ -159,8 +160,6 @@ app.post('/register', async (req, res) => {
         res.redirect("/");
     }
 });
-
-
 
 
 
@@ -203,6 +202,7 @@ app.post('/create_poll', async (req, res) => {
     
     try {
         await new_poll.save();
+        console.log("Poll Created: " + poll_title + " | " + poll_author);
         res.redirect("/home");
     } catch (err) {
         console.log(err)
