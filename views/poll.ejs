@@ -107,8 +107,8 @@
         <h5>Add a movie</h5>
         <form action="/add_movie/<%= poll._id %>" method="post">
             <% if(can_add==true && poll_active){ %>
-            <input type="text" name="movie_title" value="Add another movie">
-            <button type="submit">Add</button>
+            <input type="text" name="movie_title" placeholder="movie title" required>
+            <button class="votebtn" type="submit">Add</button>
             <% } %>
         </form>
     </section>
