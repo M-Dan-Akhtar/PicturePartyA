@@ -77,7 +77,9 @@
                             <% let winner = polls[i].winner.charAt(0).toUpperCase() + polls[i].winner.slice(1) %>
                             <span class="primary-accent">Submitted by: </span><%= winner %></p>
                         <% } %>
-                        <p class="polldate"><%= polls[i].date.toLocaleString('en-US') %></p>
+                        <p class="polldate"><%= polls[i].date.toLocaleString('en-US', {
+                            timeZone: 'America/New_York',
+                          }) %></p>
                     </div>
                     </a>
                 <%    
