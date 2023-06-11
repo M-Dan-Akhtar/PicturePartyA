@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const PORT = 8000;
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 require('dotenv').config();
 
 const cookieParser = require("cookie-parser");
@@ -87,9 +88,14 @@ app.post('/login', async (req, res) => {
     let username = req.body.username.toLowerCase();
     let password = req.body.password;
     let user_exist;
-
+    let login_success = false;
     try{
-        user_exist = await User.find({username:username, password:password});
+        user_exist = await User.find({username:username});
+        let hash = user_exist[0].password;
+
+        if ((await comparePassword(password, hash)) == true) {
+            login_success = true;
+        }
     }catch (err) {
         console.log("--------------------");
         console.log("Login Failed: Error finding user.");
@@ -98,7 +104,7 @@ app.post('/login', async (req, res) => {
         console.log("--------------------");
     }
 
-    if (user_exist[0] != null) {
+    if (login_success) {
         
         session=req.session;
         session.username=username;
@@ -152,6 +158,7 @@ app.post('/register', async (req, res) => {
         return;
     } 
     
+    password = await hashPassword(password);
     
     const new_user = new User(
         {
@@ -175,7 +182,9 @@ app.post('/register', async (req, res) => {
 
 
 
-
+//*******************************************
+// Create Poll                              * 
+//*******************************************   
 // Create poll
 // Get method
 app.get('/create_poll', async (req, res) => {
@@ -228,10 +237,9 @@ app.post('/create_poll', async (req, res) => {
 
 
 
-
-
-// POLLS
-// EDIT or Update
+//*******************************************
+// Poll                                     * 
+//*******************************************   
 app
     .route("/poll/:id")
     .get(async (req,res) => {
@@ -258,7 +266,9 @@ app
     })
  
 
-
+//*******************************************
+// Add Movie                                * 
+//*******************************************  
 app.route("/add_movie/:id")
     .post(async (req, res) => {
     session=req.session;
@@ -290,6 +300,10 @@ app.route("/add_movie/:id")
     }
 )
 
+
+//*******************************************
+// Add Vote                                 * 
+//*******************************************  
 app.route("/add_vote/:poll_id/:movie_id")
     .get(async (req, res) => {
     session=req.session;
@@ -345,7 +359,9 @@ app.route("/add_vote/:poll_id/:movie_id")
 })
 
 
-
+//*******************************************
+// Close Poll                               * 
+//*******************************************  
 
 app.route("/close_poll/:poll_id")
     .get(async (req, res) => {
@@ -403,7 +419,10 @@ app.route("/close_poll/:poll_id")
 })
 
 
-// Redeem
+//*******************************************
+// Redeem                                   * 
+//*******************************************  
+
 app.get('/redeem', async(req,res) => {
     session=req.session;
     if(!session.username){ 
@@ -463,6 +482,17 @@ app.route("/redeem")
     }
 )
 
+//*******************************************
+// Password Hashing bcrypt                  * 
+//*******************************************  
+
+function hashPassword(plainPassword) {
+	return bcrypt.hash(plainPassword, 10);
+}
+
+function comparePassword(plainPassword, hash) {
+	return bcrypt.compare(plainPassword, hash);
+}
 
 
 
