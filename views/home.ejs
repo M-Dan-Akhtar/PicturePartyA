@@ -64,7 +64,8 @@
                     <a href="/poll/<%= polls[i]._id %>" class="pollvote">
                     <div class="pollpanel">
                         <p class="polltitle"><%= polls[i].poll_title %></p>
-                        <p class="pollby">by <%= polls[i].poll_author %></p>
+                        <% let author = polls[i].poll_author.charAt(0).toUpperCase() + polls[i].poll_author.slice(1) %>
+                        <p class="pollby">by <%= author %></p>
 
                         <% if(polls[i].winner == "none") { %>
                             <p class="pollinfo">Active</p>    
@@ -73,7 +74,8 @@
                         <% } else { %>
                         <p class="pollinfo">
                             <span class="primary-accent">Winning Movie:</span> <%= polls[i].winning_movie %> 
-                            <span class="primary-accent">Submitted by: </span><%= polls[i].winner %></p>
+                            <% let winner = polls[i].winner.charAt(0).toUpperCase() + polls[i].winner.slice(1) %>
+                            <span class="primary-accent">Submitted by: </span><%= winner %></p>
                         <% } %>
                         <p class="polldate"><%= polls[i].date.toLocaleString('en-US') %></p>
                     </div>

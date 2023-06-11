@@ -19,7 +19,7 @@
         let voted = false;
         let can_add = true;
         let poll_active = poll.winner == "none" ? true : false;
-        let admin = (session.username == "Toxik") ? true : false;
+        let admin = (session.username == "toxik") ? true : false;
         
         for(let i = 0; i < poll.vote_list.length; ++i) {
             if(poll.vote_list[i].username == session.username) { voted = true } 
@@ -49,7 +49,8 @@
         <section class="poll_header">
             <section class="poll_header_title">
                 <h2><%= poll.poll_title %> <% if(!poll_active) { %> | <span class="secondary-accent">(Closed)</span> <% } %></h2>
-                <h4>By: <%= poll.poll_author %></h4>
+                <% let author = poll.poll_author.charAt(0).toUpperCase() + poll.poll_author.slice(1) %>
+                <h4>By: <%= author %></h4>
             </section>
             <section class="poll_header_add_movie">
                 <% if(can_add && poll_active) { %>
@@ -70,7 +71,8 @@
                 <% for(let i = 0; i < poll.movies.length; ++i) { %>
                 <div class="pollpanel">
                     <div class="movieinfo">
-                        <p class="pollby">Added by: <%= poll.movies[i].added_by %></p>
+                        <% let added_by = poll.movies[i].added_by.charAt(0).toUpperCase() + poll.movies[i].added_by.slice(1) %>
+                        <p class="pollby">Added by: <%= added_by %></p>
                         <p class="polltitle"><%= poll.movies[i].title %> </p>
                     </div>
                     <div class="voteinfo">
