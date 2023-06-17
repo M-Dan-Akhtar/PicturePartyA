@@ -451,7 +451,7 @@ app.route("/redeem")
     }
     
     let movie_title = req.body.movie_title;
-    let points_to_redeem = 100;
+    let points_to_redeem = 50;
     let user;
     try
     {
