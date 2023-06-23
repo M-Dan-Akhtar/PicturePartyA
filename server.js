@@ -130,7 +130,9 @@ app.get('/logout',(req,res) => {
 // Register Page
 app.get("/register", async (req, res) => {
     try {
-        res.render("register.ejs")
+        res.redirect("/");
+        //res.render("register.ejs")   registration disabled.
+
     } catch (err) {
         console.log(err)
     }
