@@ -52,7 +52,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: 38px;
-    line-height: 58px;
+    line-height: 24px;
 
     /* Primary Accent */
 
@@ -64,7 +64,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
-    line-height: 58px;
+    line-height: 24px;
 
     /* Primary Accent */
 
@@ -76,7 +76,7 @@
     font-style: normal;
     font-weight: 300;
     font-size: 24px;
-    line-height: 44px;
+    line-height: 24px;
     letter-spacing: 0.06em;
     /* Primary Accent */
     color: var(--primary-light);
@@ -95,6 +95,16 @@
     padding:0px;
   }
 
+  h6{
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 10px;
+    letter-spacing: 0.06em;
+    /* Primary Accent */
+    color: var(--primary-light);
+  }
   a {
     font-family: 'Oswald', sans-serif;
     font-style: normal;
