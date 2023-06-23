@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
 const User = require("./models/user");
 const Poll = require("./models/poll");
 const Redeem = require("./models/redeem");
+const poll = require("./models/poll");
 
 
 
@@ -169,6 +170,9 @@ app.post('/register', async (req, res) => {
 
     try {
         await new_user.save();
+        console.log("--------------------");
+        console.log(`Register Success: ${username} created.`);
+        console.log("--------------------");
         res.redirect("/");
     } catch (err) {
         console.log("--------------------");
@@ -312,11 +316,15 @@ app.route("/add_vote/:poll_id/:movie_id")
         return;
     }
     
+    
+
     const poll_id = req.params.poll_id 
     const movie_id = req.params.movie_id
 
+    let username = session.username;
     let voted = false;
     let current_poll;
+    let points_awarded = 5;
     try{
         current_poll = await Poll.find({_id:poll_id});
     }
@@ -328,6 +336,8 @@ app.route("/add_vote/:poll_id/:movie_id")
         console.log(err);
         console.log("--------------------");
     }
+
+    // check if user has voted already
     for(let i = 0; i < current_poll[0].vote_list.length; ++i) {
         if(current_poll[0].vote_list[i].username == session.username) { voted = true } 
     }
@@ -337,11 +347,22 @@ app.route("/add_vote/:poll_id/:movie_id")
         try
         {
             await Poll.updateOne(
-            { _id : poll_id, "movies._id" : movie_id},    
-            { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username}}}
-            
-            
+                { _id : poll_id, "movies._id" : movie_id},    
+                { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username}}}
             )
+
+            for(let i = 0; i < current_poll[0].movies.length; ++i)
+            {
+                if(current_poll[0].movies[i]._id == movie_id)
+                {
+                    if(current_poll[0].movies[i].added_by !== username)
+                    {
+                        await User.findOneAndUpdate({username: username}, {$inc : {points : points_awarded}})                            
+                    }
+                }
+            }
+            
+
             res.redirect("/poll/" + poll_id);
         }
         catch(err){

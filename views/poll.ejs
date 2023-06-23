@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/poll.css">
+    <link rel="stylesheet" href="../css/poll.css">
 
 </head>
 <body>
@@ -20,7 +20,9 @@
         let can_add = true;
         let poll_active = poll.winner == "none" ? true : false;
         let admin = (session.username == "toxik") ? true : false;
-        
+        let user_movie;
+
+         
         for(let i = 0; i < poll.vote_list.length; ++i) {
             if(poll.vote_list[i].username == session.username) { voted = true } 
         }
@@ -76,7 +78,7 @@
                         <p class="polltitle"><%= poll.movies[i].title %> </p>
                     </div>
                     <div class="voteinfo">
-                    <p class="votes"> Votes: <%= poll.movies[i].votes %></p> 
+                    <p class="votes"> Votes: <% if(poll_active){ %> - <% } else { %> <%= poll.movies[i].votes %> <% } %></p> 
 
                         <% if(voted==false && poll_active){ %>
                             <a href="/add_vote/<%= poll._id %>/<%= poll.movies[i]._id %>" class="votebtn"> Vote </a></li>
@@ -90,7 +92,7 @@
                 
             </section>
             
-            <% if(admin) { %>
+            <% if(admin && poll_active) { %>
                 <a href="/close_poll/<%= poll._id %>">Close Poll</a>
             <% } %>
         </section>
