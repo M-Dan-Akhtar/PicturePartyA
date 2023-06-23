@@ -20,7 +20,7 @@
         let can_add = true;
         let poll_active = poll.winner == "none" ? true : false;
         let admin = (session.username == "toxik") ? true : false;
-        let user_movie;
+        let total_votes = poll.vote_list.length;
 
          
         for(let i = 0; i < poll.vote_list.length; ++i) {
@@ -93,7 +93,7 @@
                 
             </section>
             
-            <% if(admin && poll_active) { %>
+            <% if(admin && poll_active && total_votes >= 3) { %>
                 <a href="/close_poll/<%= poll._id %>">Close Poll</a>
             <% } %>
         </section>
