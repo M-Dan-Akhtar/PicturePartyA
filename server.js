@@ -31,9 +31,6 @@ const Poll = require("./models/poll");
 const Redeem = require("./models/redeem");
 const poll = require("./models/poll");
 
-
-
-
 // Set middleware
 app.set("view engine", "ejs");
 app.use(express.static('public'));  // makes use of a public folder for static files (css etc)
@@ -44,6 +41,7 @@ mongoose.connect(process.env.DB_CONNECTION,
                 ()=>{console.log("Connected to database")});
 
 
+                
 app.get("/home", async (req, res) => {
     session=req.session;
     if(session.username){
@@ -60,9 +58,6 @@ app.get("/home", async (req, res) => {
     {
         res.redirect("/")
     }
-
-
-    
 });
 
 //*******************************************
@@ -89,24 +84,31 @@ app.post('/login', async (req, res) => {
     let username = req.body.username.toLowerCase();
     let password = req.body.password;
     let user_exist;
+    let hash;
     let login_success = false;
     try{
         user_exist = await User.find({username:username});
-        let hash = user_exist[0].password;
+        
+        if(user_exist.length > 0)
+        {
+            hash = user_exist[0].password;
 
-        if ((await comparePassword(password, hash)) == true) {
-            login_success = true;
+            if ((await comparePassword(password, hash)) == true) {
+                login_success = true;
+            }
         }
+        
     }catch (err) {
         console.log("--------------------");
         console.log("Login Failed: Error finding user.");
         console.log("--------------------");
         console.log(err);
         console.log("--------------------");
+        res.redirect("/home");
+        return;
     }
 
     if (login_success) {
-        
         session=req.session;
         session.username=username;
         console.log("Login Success: " + username);
@@ -157,6 +159,7 @@ app.post('/register', async (req, res) => {
     }
 
     if (user_exist[0] != null) {
+        console.log(`Register Failed: "${username}" user already exists.`);
         res.render('register', {result: "User already exists."})
         return;
     } 
@@ -172,9 +175,7 @@ app.post('/register', async (req, res) => {
 
     try {
         await new_user.save();
-        console.log("--------------------");
-        console.log(`Register Success: ${username} created.`);
-        console.log("--------------------");
+        console.log(`Register Success: "${username}" created.`);
         res.redirect("/");
     } catch (err) {
         console.log("--------------------");
@@ -191,8 +192,6 @@ app.post('/register', async (req, res) => {
 //*******************************************
 // Create Poll                              * 
 //*******************************************   
-// Create poll
-// Get method
 app.get('/create_poll', async (req, res) => {
     session=req.session;
     if(!session.username){ 
@@ -233,7 +232,7 @@ app.post('/create_poll', async (req, res) => {
         res.redirect("/home");
     } catch (err) {
         console.log("--------------------");
-        console.log("Create Poll Failed: Error creating new_poll.");
+        console.log("Poll Failed: Error creating new_poll.");
         console.log("--------------------");
         console.log(err);
         console.log("--------------------");
@@ -254,7 +253,7 @@ app
             res.redirect("/"); 
             return;
         }
-
+        const username = session.username;
         const id = req.params.id
         let current_poll;
         try
@@ -268,7 +267,16 @@ app
             console.log(err);
             console.log("--------------------");
         }
-        res.render('poll.ejs', {poll:current_poll[0]})
+        if(current_poll.length > 0)
+        {
+            res.render('poll.ejs', {poll:current_poll[0]})
+        }
+        else
+        {
+            console.log(`Poll Failed: Poll doesn't exist. Accessed by ${username}.`);
+            res.redirect("/home"); 
+        }
+
     })
  
 
@@ -318,8 +326,6 @@ app.route("/add_vote/:poll_id/:movie_id")
         return;
     }
     
-    
-
     const poll_id = req.params.poll_id 
     const movie_id = req.params.movie_id
 
@@ -500,7 +506,6 @@ app.route("/redeem")
         }
     }
     catch(err){console.log(err)}
-    
 
     }
 )
