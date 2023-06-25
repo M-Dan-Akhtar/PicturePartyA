@@ -77,7 +77,6 @@
                         <% let added_by = poll.movies[i].added_by.charAt(0).toUpperCase() + poll.movies[i].added_by.slice(1) %>
                         <p class="pollby">Added by: <%= added_by %></p>
                         <p class="polltitle"><%= poll.movies[i].title %> <a href="https://www.youtube.com/results?search_query=<%= poll.movies[i].title.replace(/ /g, '+') %>+movie+trailer" target="_blank"> Trailer</a></p>
-                        
                     </div>
                     <div class="voteinfo">
                     <p class="votes"> Votes: <% if(poll_active){ %> - <% } else { %> <%= poll.movies[i].votes %> <% } %></p> 
