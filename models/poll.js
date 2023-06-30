@@ -25,7 +25,8 @@ winning_movie: {
 },
 vote_list: [
     {
-        username: {type:String, required:false}
+        username: {type:String, required:false},
+        voted_for: {type:String, required:false}
     }
 ],
 date: {

@@ -41,13 +41,29 @@
         <section>
             <ul>
             <p class="leaderboardtitle leaderboardlist">Points: </p>
-                <% for(let i = 0; i < users.length; ++i) { %>
-                <li class="leaderboardlist">
-                    <span class="leaderboardusername"><%= users[i].username %></span>
-                    <span class="leaderboardpoints"><%= users[i].points %></span>
-                    <span class="leaderboardseperate"> | </span>
-                </li>
-                <%   } %>   
+                <% 
+                let active_poll = false;
+
+                for(let i = polls.length - 1; i >= 0; --i) { 
+                    if(polls[i].winner == "none"){
+                        active_poll = true;
+                        break;
+                    }
+                }
+                if(!active_poll){
+                    for(let i = 0; i < users.length; ++i) { %>
+                    <li class="leaderboardlist">
+                        <span class="leaderboardusername"><%= users[i].username %></span>
+                        <span class="leaderboardpoints"><%= users[i].points %></span>
+                        <span class="leaderboardseperate"> | </span>
+                    </li>
+                <%  }  
+                } else { %>
+                    <li class="leaderboardlist">
+                        <span class="leaderboarddisabled">Active poll, points hidden.</span>
+                    </li>
+                <%
+                } %>   
             </ul>
         </section>
 

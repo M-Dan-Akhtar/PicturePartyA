@@ -232,7 +232,7 @@ app.post('/create_poll', async (req, res) => {
         res.redirect("/home");
     } catch (err) {
         console.log("--------------------");
-        console.log("Poll Failed: Error creating new_poll.");
+        console.log("Poll Failed: Error creating new_poll | " + poll_author);
         console.log("--------------------");
         console.log(err);
         console.log("--------------------");
@@ -301,6 +301,7 @@ app.route("/add_movie/:id")
         {
             $push : { movies: { added_by: session.username, title:movie_title}}    
         })
+        console.log("Movie added: " + movie_title + " | " + poll_author);
         res.redirect("/poll/" + id);
     }
     catch(err)
@@ -333,9 +334,17 @@ app.route("/add_vote/:poll_id/:movie_id")
     let voted = false;
     let current_poll;
     let points_awarded = 5;
-    
+    let movie_title;
+
     try{
         current_poll = await Poll.find({_id:poll_id});
+        for(let i = 0; i < current_poll[0].movies.length; ++i)
+        {
+            if(current_poll[0].movies[i]._id == movie_id)
+            {
+               movie_title = current_poll[0].movies[i].title;
+            }
+        }
     }
     catch(err)
     {
@@ -344,6 +353,8 @@ app.route("/add_vote/:poll_id/:movie_id")
         console.log("--------------------");
         console.log(err);
         console.log("--------------------");
+        res.redirect("/home");
+        return;
     }
 
     // check if user has voted already
@@ -358,8 +369,10 @@ app.route("/add_vote/:poll_id/:movie_id")
             // add one vote to the movie and update vote_list with the user who voted
             await Poll.updateOne(
                 { _id : poll_id, "movies._id" : movie_id},    
-                { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username}}}
+                { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username, voted_for: movie_title}}}
             )
+
+            
 
             // person who added the movie gets points anytime someone votes for their movie
             for(let i = 0; i < current_poll[0].movies.length; ++i)
@@ -370,12 +383,13 @@ app.route("/add_vote/:poll_id/:movie_id")
                     
                     if(added_by !== username)
                     {
-                        await User.findOneAndUpdate({username: added_by}, {$inc : {points : points_awarded}})                            
+                        await User.findOneAndUpdate({username: added_by}, {$inc : {points : points_awarded}})
+                        await User.findOneAndUpdate({username: username}, {$inc : {points : points_awarded}})
                     }
                 }
             }
             
-
+            console.log("Vote added: " + movie_title + " | Poll: " + current_poll[0].poll_title + " | " + username);
             res.redirect("/poll/" + poll_id);
         }
         catch(err){
@@ -485,7 +499,7 @@ app.route("/redeem")
     }
     
     let movie_title = req.body.movie_title;
-    let points_to_redeem = 50;
+    let points_to_redeem = 100;
     let user;
     try
     {

@@ -28,10 +28,12 @@
         <div class="innerpanel"> 
             <h2>Redeem A Movie</h2>
             <p>Your Points: <span class="primary-accent"><%= locals.points %></span></p>
-            <p>Get <span class="secondary-accent">0 points</span> for voting on your own movie.</p>
-            <p>Get <span class="secondary-accent">5 points</span> for voting on someone else's movie!</p>
-            <p>Get <span class="secondary-accent">10 points</span> if your movie wins!</p>
-            <p>Use <span class="secondary-accent">50 points</span> to watch a movie of your choice!</p>
+            <p>Earn:</p>
+            <p><span class="secondary-accent">0 points</span> for voting on your own movie.</p>
+            <p><span class="secondary-accent">5 points</span> for voting on someone else's movie!</p>
+            <p><span class="secondary-accent">5 points</span> if someone votes for your movie!</p>
+            <p>Spend:</p>
+            <p><span class="secondary-accent">100 points</span> to watch a movie of your choice!</p>
             <div class="error">
                 <% if(locals.result) { %>
                     <p><img src="/img/errorlogo.png" class="errorlogo"><%=result%></p>

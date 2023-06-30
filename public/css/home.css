@@ -177,6 +177,27 @@
     letter-spacing: 0.06em;
   }
 
+  .leaderboarddisabled {
+    color: var(--primary-light);
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    animation: fade 1.5s ease-in forwards;
+  }
+  
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+
 .redeem{
   color: var(--primary-light);
   font-family: 'Oswald', sans-serif;
