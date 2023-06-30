@@ -333,6 +333,7 @@ app.route("/add_vote/:poll_id/:movie_id")
     let voted = false;
     let current_poll;
     let points_awarded = 5;
+    
     try{
         current_poll = await Poll.find({_id:poll_id});
     }
@@ -354,18 +355,22 @@ app.route("/add_vote/:poll_id/:movie_id")
     if(!voted){
         try
         {
+            // add one vote to the movie and update vote_list with the user who voted
             await Poll.updateOne(
                 { _id : poll_id, "movies._id" : movie_id},    
                 { $inc: {"movies.$.votes" : 1}, $push : { vote_list: { username: session.username}}}
             )
 
+            // person who added the movie gets points anytime someone votes for their movie
             for(let i = 0; i < current_poll[0].movies.length; ++i)
             {
                 if(current_poll[0].movies[i]._id == movie_id)
                 {
-                    if(current_poll[0].movies[i].added_by !== username)
+                    const added_by = current_poll[0].movies[i].added_by;
+                    
+                    if(added_by !== username)
                     {
-                        await User.findOneAndUpdate({username: username}, {$inc : {points : points_awarded}})                            
+                        await User.findOneAndUpdate({username: added_by}, {$inc : {points : points_awarded}})                            
                     }
                 }
             }
@@ -433,7 +438,7 @@ app.route("/close_poll/:poll_id")
         else
         {
             await Poll.findByIdAndUpdate(poll_id,{ winner: winner, winning_movie: winning_movie })
-            await User.findOneAndUpdate({username: winner}, {$inc : {points : points_awarded}})
+            //await User.findOneAndUpdate({username: winner}, {$inc : {points : points_awarded}})
         }
 
         res.redirect("/poll/" + poll_id);
