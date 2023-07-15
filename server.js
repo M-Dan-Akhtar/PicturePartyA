@@ -301,7 +301,7 @@ app.route("/add_movie/:id")
         {
             $push : { movies: { added_by: session.username, title:movie_title}}    
         })
-        console.log("Movie added: " + movie_title + " | " + poll_author);
+        console.log("Movie added: " + movie_title + " | " + session.username);
         res.redirect("/poll/" + id);
     }
     catch(err)
