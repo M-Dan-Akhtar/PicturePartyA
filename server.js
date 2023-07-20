@@ -29,7 +29,6 @@ app.use(function (req, res, next) {
 const User = require("./models/user");
 const Poll = require("./models/poll");
 const Redeem = require("./models/redeem");
-const poll = require("./models/poll");
 
 // Set middleware
 app.set("view engine", "ejs");
