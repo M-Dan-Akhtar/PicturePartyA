@@ -8,7 +8,7 @@ Sign in to add a new poll, add movies to the polls and let your friends vote for
 
 
 
-<img src="https://iili.io/HZrNJ0N.th.png" alt="HZrNJ0N.th.png" border="0">
+<img src="https://iili.io/HZrNJ0N.md.png" alt="HZrNJ0N.md.png" border="0">
 
 
 ### Dependencies
