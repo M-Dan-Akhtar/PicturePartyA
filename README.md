@@ -1,4 +1,4 @@
-# Picture Party
+# Picture Party (WIP)
 
 A fun website that allows friends to create polls for movies to watch. Earn points by winning the poll and redeem those points for perks.
 
@@ -10,6 +10,9 @@ Sign in to add a new poll, add movies to the polls and let your friends vote for
 
 <img src="https://iili.io/HZrNJ0N.md.png" alt="HZrNJ0N.md.png" border="0">
 
+<img src="https://iili.io/HZr8Z5N.md.png" alt="HZr8Z5N.md.png" border="0">
+
+<img src="https://iili.io/HZrsyLN.md.png" alt="HZrsyLN.md.png" border="0">
 
 ### Dependencies
 
@@ -17,7 +20,7 @@ Node.js
 
 ## Authors
 
-Contributors names and contact info
+Contributors names
 
 Muhammad Akhtar
 
