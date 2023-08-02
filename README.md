@@ -18,6 +18,10 @@ Sign in to add a new poll, add movies to the polls and let your friends vote for
 
 Node.js
 
+## Planned Features
+
+* Admin Panel
+
 ## Authors
 
 Contributors names
