@@ -24,8 +24,6 @@ Node.js
 
 ## Authors
 
-Contributors names
-
 Muhammad Akhtar
 
 ## Version History
