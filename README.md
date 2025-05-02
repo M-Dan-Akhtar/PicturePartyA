@@ -16,10 +16,10 @@ Sign in to add a new poll, add movies to the polls and let your friends vote for
 
 ### What I learned
 
-Sanitize user inputs! Even lengths of inputs!
-Securely store user data(passwords) by encryption
-Simple visual designs can be effective
-Use/Setup of environment variables in product enivornment
+* Sanitize user inputs! Even lengths of inputs!
+* Securely store user data(passwords) by encryption
+* Simple visual designs can be effective
+* Use/Setup of environment variables in product enivornment
 
 
 ### Dependencies
