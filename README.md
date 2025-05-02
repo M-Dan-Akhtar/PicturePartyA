@@ -14,6 +14,14 @@ Sign in to add a new poll, add movies to the polls and let your friends vote for
 
 <img src="https://iili.io/HZrsyLN.md.png" alt="HZrsyLN.md.png" border="0">
 
+### What I learned
+
+Sanitize user inputs! Even lengths of inputs!
+Securely store user data(passwords) by encryption
+Simple visual designs can be effective
+Use/Setup of environment variables in product enivornment
+
+
 ### Dependencies
 
 Node.js
